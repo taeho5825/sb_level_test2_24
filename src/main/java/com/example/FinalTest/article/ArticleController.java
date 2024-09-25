@@ -28,7 +28,7 @@ public class ArticleController {
     public String list(Model model, @RequestParam(value="page", defaultValue="0") int page) {
         Page<Article> paging = this.articleService.getList(page);
         model.addAttribute("paging", paging);
-        return "question_list";
+        return "article_list";
     }
 
     @PreAuthorize("isAuthenticated()")
