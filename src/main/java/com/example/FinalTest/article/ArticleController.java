@@ -25,7 +25,7 @@ public class ArticleController {
     private final UserService userService;
 
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value="page", defaultValue="0") int page) {
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         Page<Article> paging = this.articleService.getList(page);
         model.addAttribute("paging", paging);
         return "article_list";
@@ -51,6 +51,11 @@ public class ArticleController {
     @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id) {
         Article article = this.articleService.getArticle(id);
+
+        if (article == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Article not found");
+        }
+
         model.addAttribute("article", article);
         return "article_detail";
     }
@@ -77,6 +82,5 @@ public class ArticleController {
         this.articleService.delete(article);
         return "redirect:/";
     }
-
 
 }

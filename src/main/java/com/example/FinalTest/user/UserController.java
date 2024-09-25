@@ -31,7 +31,6 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "signup_form";
         }
-
         if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordInCorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
@@ -50,9 +49,6 @@ public class UserController {
             bindingResult.reject("signupFailed", e.getMessage());
             return "signup_form";
         }
-
-        userService.create(userCreateForm.getUsername(),
-                userCreateForm.getNickname(), userCreateForm.getPassword1());
 
         return "redirect:/";
     }
